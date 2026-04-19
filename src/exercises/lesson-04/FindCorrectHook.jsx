@@ -1,16 +1,25 @@
 // TOPIC: Choose the correct tool: useRef vs useState
 // TASK: Make sure it updates the text *without* triggering a re-render
-export default function FindCorrectHook() {
-  let clickCount = 0; // ← incorrect implementation
+import { useState } from 'react';
+
+function FindCorrectHook() {
+  const [clickCount, setClickCount] = useState(0);
 
   function handleClick() {
-    clickCount++;
+    setClickCount((prev) => prev + 1);
   }
 
-  return (
-    <div>
-      <h2>useRef vs useState Decision</h2>
-      <button onClick={handleClick}>{clickCount} Clicks</button>
-    </div>
-  );
+  return <button onClick={handleClick}>Clicks: {clickCount}</button>;
 }
+
+export default FindCorrectHook;
+
+/*
+Fix: useRef vs useState
+
+The original implementation likely used useRef, which does not trigger re-renders.
+Since we want the UI to update when the count chages,
+we must use useStte instead.
+
+useState causes React to re-render the component when the value updates.
+*/
