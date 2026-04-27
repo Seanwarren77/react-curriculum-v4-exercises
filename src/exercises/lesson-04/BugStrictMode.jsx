@@ -3,21 +3,31 @@
 
 import { useEffect, useState } from 'react';
 
-export default function BugStrictMode() {
+function BugStrictMode() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setInterval(() => {
-      setCount((c) => c + 1);
+    // Start interval
+    const interval = setInterval(() => {
+      setCount((prevCount) => prevCount + 1);
     }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
-  return (
-    <div>
-      <h2>StrictMode Timer Bug</h2>
-      <p>Count: {count}</p>
-    </div>
-  );
+  return <h2>Count: {count}</h2>;
 }
 
+export default BugStrictMode;
+
 // Write your explanation of how StrictMode helps us catch this bug
+// Fix: StrictMode Double Effect Issue
+// In React StrictMode (development only), useEffect runs twice on mount.
+// This caused multiple intervals to be created, making the counter increment by 2.
+
+// Solution:
+// Store the interval in a variaable
+// Use a cleanup function to clear the interval
+// This ensures only one interva runs at a time.
