@@ -3,7 +3,7 @@ function filterTasks(tasks, filter) {
     return tasks.filter((task) => task.completed);
   }
 
-  if (filter === 'pending') {
+  if (filter === 'incomplete') {
     return tasks.filter((task) => !task.completed);
   }
 
