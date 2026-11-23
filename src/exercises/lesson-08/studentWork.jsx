@@ -29,8 +29,6 @@ export default function StudentWork() {
   }, []);
 
   // TODO #2: Optimize this favorite toggle handler with useCallback
-  // This function is recreated on every render, causing BookCard re-renders
-  // TODO #2: Optimize this favorite toggle handler with useCallback
   const handleToggleFavorite = useCallback((bookId) => {
     setFavorites((prev) =>
       prev.includes(bookId)
